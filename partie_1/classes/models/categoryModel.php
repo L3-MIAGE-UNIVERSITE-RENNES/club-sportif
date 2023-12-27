@@ -1,28 +1,23 @@
 <?php
+    class Category {
+        private $id_categorie;
+        private $nom;
+        private $code_raccourci;
 
-class Category {
+        public function __construct($id_categorie, $nom, $code_raccourci) {
+            $this->id_categorie = $id_categorie;
+            $this->nom = $nom;
+            $this->code_raccourci = $code_raccourci;
+        }
 
-    private $nom;
-    private $codeCategory;
+        // Getters
+        public function getIdCategorie() { return $this->id_categorie; }
+        public function getNom() { return $this->nom; }
+        public function getCodeRaccourci() { return $this->code_raccourci; }
 
-    public function __construct($nom, $codeCategory) {
-        $this->nom = $nom;
-        $this->codeCategory = $codeCategory;
+        // Setters
+        public function setIdCategorie($id_categorie) { $this->id_categorie = $id_categorie; }
+        public function setNom($nom) { $this->nom = $nom; }
+        public function setCodeRaccourci($code_raccourci) { $this->code_raccourci = $code_raccourci; }
     }
 
-    public function getNom() {
-        return $this->nom;
-    }
-
-    public function getCodeCategory() {
-        return $this->codeCategory;
-    }
-
-    public function setNom($nom) {
-        $this->nom = $nom;
-    }
-
-    public function setCodeCategory($codeCategory) {
-        $this->codeCategory = $codeCategory;
-    }
-}
