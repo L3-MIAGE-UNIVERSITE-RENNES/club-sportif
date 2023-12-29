@@ -33,6 +33,22 @@
             }
         }
 
+        public function getByEmail($email) {
+            try {
+                $stmt = $this->connexion->pdo->prepare("SELECT * FROM educateur WHERE email = ?");
+                $stmt->execute([$email]);
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($row) {
+                    return new Educateur($row['id_educateur'], $row['numero_licence'], $row['email'], $row['mot_de_passe'], $row['est_administrateur']);
+                } else {
+                    return null;
+                }
+            } catch (PDOException $e) {
+                return null;
+            }
+        }
+
         public function getAll() {
             try {
                 $stmt = $this->connexion->pdo->query("SELECT * FROM educateur");

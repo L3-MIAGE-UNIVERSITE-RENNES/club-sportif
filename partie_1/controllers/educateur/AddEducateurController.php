@@ -23,13 +23,21 @@ class AddEducateurController
                 $email = $_POST['email'];
                 $mot_de_passe = $_POST['mot_de_passe'];
                 $est_administrateur = $_POST['est_administrateur'];
-                print_r($est_administrateur);
 
-                // Valider les données du formulaire (ajoutez des validations si nécessaire)
-                     // -- password should be hash
-                     // -- email should be unique
-                // Créer un nouvel objet ContactModel avec les données du formulaire
-                $educateur = new Educateur("", $numero_licence, $email, $mot_de_passe, $est_administrateur  == "oui");
+                // Valider les données du formulaire
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    echo 'Email invalid';
+                    return;
+                }
+
+                if($this->educateurDAO->getByEmail($email)){
+                    echo 'Cet educateur existe déjà !';
+                    return;
+                }
+
+                // Hasher le mot de passe
+                $hmot_de_passe = password_hash($mot_de_passe, PASSWORD_DEFAULT);
+                $educateur = new Educateur("", $numero_licence, $email, $hmot_de_passe, $est_administrateur  == "oui" ? 1 : 0);
                 // Appeler la méthode du modèle (ContactDAO) pour ajouter le contact
                 if ($this->educateurDAO->create($educateur)) {
                     // Rediriger vers la page d'accueil après l'ajout
