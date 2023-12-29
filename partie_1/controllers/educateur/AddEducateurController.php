@@ -38,7 +38,6 @@ class AddEducateurController
                 // Hasher le mot de passe
                 $hmot_de_passe = password_hash($mot_de_passe, PASSWORD_DEFAULT);
                 $educateur = new Educateur("", $numero_licence, $email, $hmot_de_passe, $est_administrateur  == "oui" ? 1 : 0);
-                // Appeler la méthode du modèle (ContactDAO) pour ajouter le contact
                 if ($this->educateurDAO->create($educateur)) {
                     // Rediriger vers la page d'accueil après l'ajout
                     header('Location:ListEducateurController.php');
