@@ -1,8 +1,7 @@
 <?php
-$host = "localhost";
-$database = "club_sportif";
-$username = "root";
-$password = "";
-?>
+    $host = "localhost";
+    $database = "club_sportif";
+    $username = "root";
+    $password = "root";
 
 

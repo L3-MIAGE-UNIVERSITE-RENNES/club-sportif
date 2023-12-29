@@ -1,3 +1,2 @@
 <?php
-  echo "hola !"
-?>
+    header("Location:views/Home.php");
