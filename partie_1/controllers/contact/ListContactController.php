@@ -1,6 +1,6 @@
 <?php
-    class ListContactController
-    {
+class ListContactController
+{
         private $contactDAO;
 
         public function __construct(ContactDAO $contactDAO) {
