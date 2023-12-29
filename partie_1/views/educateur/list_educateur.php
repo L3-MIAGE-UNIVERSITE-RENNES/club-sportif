@@ -29,7 +29,7 @@
                 <td>
                     <a href="ViewContactController.php?id=<?php echo $educateur->getIdEducateur(); ?>">Voir</a>
                     <a href="EditContactController.php?id=<?php echo $educateur->getIdEducateur(); ?>">Modifier</a>
-                    <a href="DeleteContactController.php?id=<?php echo $educateur->getIdEducateur(); ?>">Supprimer</a>
+                    <a href="DeleteEducateurController.php?id=<?php echo $educateur->getIdEducateur(); ?>">Supprimer</a>
                 </td>
             </tr>
         <?php endforeach; ?>

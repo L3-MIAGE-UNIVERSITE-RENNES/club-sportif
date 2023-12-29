@@ -19,7 +19,7 @@
 
         public function getById($id) {
             try {
-                $stmt = $this->connexion->pdo->prepare("SELECT * FROM educateurs WHERE id_educateur = ?");
+                $stmt = $this->connexion->pdo->prepare("SELECT * FROM educateur WHERE id_educateur = ?");
                 $stmt->execute([$id]);
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -60,7 +60,7 @@
 
         public function deleteById($id) {
             try {
-                $stmt = $this->connexion->pdo->prepare("DELETE FROM educateurs WHERE id_educateur = ?");
+                $stmt = $this->connexion->pdo->prepare("DELETE FROM educateur WHERE id_educateur = ?");
                 $stmt->execute([$id]);
                 return true;
             } catch (PDOException $e) {
