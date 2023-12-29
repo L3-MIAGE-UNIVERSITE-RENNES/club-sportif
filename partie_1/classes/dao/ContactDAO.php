@@ -68,7 +68,7 @@ class ContactDAO {
     public function update(Contact $contact) {
         try {
             $stmt = $this->connexion->pdo->prepare("UPDATE contact SET nom = ?, prenom = ?, email = ?, numero_tel = ? WHERE id = ?");
-            $stmt->execute([$contact->getNom(), $contact->getPrenom(), $contact->getEmail(), $contact->getNumeroTel(), $contact->getId()]);
+            $stmt->execute([$contact->getNom(), $contact->getPrenom(), $contact->getEmail(), $contact->getNumeroTel(), $contact->getIdContact()]);
             return true;
         } catch (PDOException $e) {
             return false;
@@ -81,6 +81,7 @@ class ContactDAO {
             $stmt->execute([$id]);
             return true;
         } catch (PDOException $e) {
+            print_r($e->getMessage());
             return false;
         }
     }
