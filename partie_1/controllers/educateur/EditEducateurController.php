@@ -43,7 +43,6 @@ class EditEducateurController {
 
                 if ($this->educateurDAO->update($educateur)) {
                     // Rediriger vers la page de détails après la modification
-                    // header('Location:EditEducateurController.php?id=' . $id);
                     header('Location:ListEducateurController.php');
                     exit();
                 } else {

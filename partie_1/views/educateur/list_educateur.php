@@ -25,7 +25,7 @@
             <tr>
                 <td><?php echo $educateur->getNumeroLicence(); ?></td>
                 <td><?php echo $educateur->getEmail(); ?></td>
-                <td><?php echo $educateur->getEstAdministrateur(); ?></td>
+                <td><?php echo $educateur->getEstAdministrateur() == 1 ? 'oui' : 'non'; ?></td>
                 <td>
                     <a href="ViewEducateurController.php?id=<?php echo $educateur->getIdEducateur(); ?>">Voir</a>
                     <a href="EditEducateurController.php?id=<?php echo $educateur->getIdEducateur(); ?>">Modifier</a>
