@@ -27,8 +27,8 @@
                 <td><?php echo $educateur->getEmail(); ?></td>
                 <td><?php echo $educateur->getEstAdministrateur(); ?></td>
                 <td>
-                    <a href="ViewContactController.php?id=<?php echo $educateur->getIdEducateur(); ?>">Voir</a>
-                    <a href="EditContactController.php?id=<?php echo $educateur->getIdEducateur(); ?>">Modifier</a>
+                    <a href="ViewEducateurController.php?id=<?php echo $educateur->getIdEducateur(); ?>">Voir</a>
+                    <a href="EditEducateurController.php?id=<?php echo $educateur->getIdEducateur(); ?>">Modifier</a>
                     <a href="DeleteEducateurController.php?id=<?php echo $educateur->getIdEducateur(); ?>">Supprimer</a>
                 </td>
             </tr>

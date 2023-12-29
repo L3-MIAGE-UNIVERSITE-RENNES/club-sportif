@@ -66,10 +66,11 @@
 
         public function update(Educateur $educateur) {
             try {
-                $stmt = $this->connexion->pdo->prepare("UPDATE educateurs SET id_educateur = ?, numero_licence = ?, email = ?, mot_de_passe = ?, est_administrateur = ? WHERE id_educateur = ?");
+                $stmt = $this->connexion->pdo->prepare("UPDATE educateur SET id_educateur = ?, numero_licence = ?, email = ?, mot_de_passe = ?, est_administrateur = ? WHERE id_educateur = ?");
                 $stmt->execute([$educateur->getIdEducateur(), $educateur->getNumeroLicence(), $educateur->getEmail(), $educateur->getMotDePasse(), $educateur->getEstAdministrateur(), $educateur->getIdEducateur()]);
                 return true;
             } catch (PDOException $e) {
+                print_r($e->getMessage());
                 return false;
             }
         }
