@@ -1,3 +1,4 @@
+<?php require('../../controllers/auth/guard.php'); ?><!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

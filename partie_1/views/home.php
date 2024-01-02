@@ -1,3 +1,5 @@
+<?php require('../controllers/auth/guard.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,7 +8,7 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-<h1>Welcome</h1>
+<h1>CLUB SPORTIF</h1>
 <nav>
     <ul>
         <li><a href="license.php">Licencié</a></li>
