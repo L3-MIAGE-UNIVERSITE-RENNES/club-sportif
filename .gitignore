@@ -1,1 +1,10 @@
 .idea
+###> symfony/framework-bundle ###
+/partie_2/.env.local
+/partie_2/.env.local.php
+/partie_2/.env.*.local
+/partie_2/config/secrets/prod/prod.decrypt.private.php
+/partie_2/public/bundles/
+/partie_2/var/
+/partie_2/vendor/
+###< symfony/framework-bundle ###
