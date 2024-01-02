@@ -18,43 +18,38 @@ Ce dépôt contient une application backend en PHP pour la gestion des membres, 
 ## Partie 1: PHP DAO/MVC
 ### Base de données
 
-```
--- Table des catégories
-CREATE TABLE categories (
-   id INT PRIMARY KEY AUTO_INCREMENT,
-   nom VARCHAR(50) NOT NULL,
-   code_raccourci VARCHAR(10) NOT NULL
+``` sql
+CREATE TABLE contact (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ nom VARCHAR(255) NOT NULL,
+ prenom VARCHAR(255) NOT NULL,
+ email VARCHAR(255) NOT NULL,
+ numero_tel VARCHAR(20) NOT NULL
 );
 
--- Table des contacts
-CREATE TABLE contacts (
-   id INT PRIMARY KEY AUTO_INCREMENT,
-   nom VARCHAR(50) NOT NULL,
-   prenom VARCHAR(50) NOT NULL,
-   email VARCHAR(100) NOT NULL,
-   numero_tel VARCHAR(15) NOT NULL
+CREATE TABLE categorie (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ nom VARCHAR(255) NOT NULL,
+ code_raccourci VARCHAR(10) NOT NULL
 );
 
--- Table des licenciés
-CREATE TABLE licencies (
-   id INT PRIMARY KEY AUTO_INCREMENT,
-   numero_licence VARCHAR(20) UNIQUE NOT NULL,
-   nom VARCHAR(50) NOT NULL,
-   prenom VARCHAR(50) NOT NULL,
-   contact_id INT,
-   categorie_id INT,
-   FOREIGN KEY (contact_id) REFERENCES contacts(id) ON DELETE SET NULL,
-   FOREIGN KEY (categorie_id) REFERENCES categories(id) ON DELETE SET NULL
+CREATE TABLE licencie (
+ numero_licence INT AUTO_INCREMENT PRIMARY KEY,
+ nom VARCHAR(255) NOT NULL,
+ prenom VARCHAR(255) NOT NULL,
+ id_contact INT,
+ id_categorie INT,
+ FOREIGN KEY (id_contact) REFERENCES contact(id) ON DELETE SET NULL,
+ FOREIGN KEY (id_categorie) REFERENCES categorie(id) ON DELETE SET NULL
 );
 
--- Table des éducateurs
-CREATE TABLE educateurs (
-   id INT PRIMARY KEY AUTO_INCREMENT,
-   email VARCHAR(100) UNIQUE NOT NULL,
-   mot_de_passe VARCHAR(255) NOT NULL,
-   est_administrateur BOOLEAN NOT NULL,
-   licencie_id INT,
-   FOREIGN KEY (licencie_id) REFERENCES licencies(id) ON DELETE SET NULL
+CREATE TABLE educateur (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ numero_licence INT NOT NULL,
+ email VARCHAR(255) NOT NULL,
+ mot_de_passe VARCHAR(255) NOT NULL,
+ est_administrateur BOOLEAN NOT NULL,
+ FOREIGN KEY (numero_licence) REFERENCES licencie(numero_licence) ON DELETE SET NULL
 );
 
 ```
