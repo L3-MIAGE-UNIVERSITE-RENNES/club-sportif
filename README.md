@@ -7,6 +7,7 @@ Ce dépôt contient une application backend en PHP pour la gestion des membres, 
 ## Table des matières
 
 1. [Partie 1: PHP DAO/MVC](#partie-1-php-daomvc)
+    - [Base de données](#Base-de-données)
     - [Classes](#classes)
     - [Fonctionnalités](#fonctionnalités)
     - [Bonus](#bonus)
@@ -15,6 +16,43 @@ Ce dépôt contient une application backend en PHP pour la gestion des membres, 
     - [Fonctionnalités](#fonctionnalités-1)
 
 ## Partie 1: PHP DAO/MVC
+### Base de données
+
+``` sql
+CREATE TABLE contact (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ nom VARCHAR(255) NOT NULL,
+ prenom VARCHAR(255) NOT NULL,
+ email VARCHAR(255) NOT NULL,
+ numero_tel VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE categorie (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ nom VARCHAR(255) NOT NULL,
+ code_raccourci VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE licencie (
+ numero_licence INT AUTO_INCREMENT PRIMARY KEY,
+ nom VARCHAR(255) NOT NULL,
+ prenom VARCHAR(255) NOT NULL,
+ id_contact INT,
+ id_categorie INT,
+ FOREIGN KEY (id_contact) REFERENCES contact(id) ON DELETE SET NULL,
+ FOREIGN KEY (id_categorie) REFERENCES categorie(id) ON DELETE SET NULL
+);
+
+CREATE TABLE educateur (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ numero_licence INT NOT NULL,
+ email VARCHAR(255) NOT NULL,
+ mot_de_passe VARCHAR(255) NOT NULL,
+ est_administrateur BOOLEAN NOT NULL,
+ FOREIGN KEY (numero_licence) REFERENCES licencie(numero_licence) ON DELETE SET NULL
+);
+
+```
 
 ### Classes
 
