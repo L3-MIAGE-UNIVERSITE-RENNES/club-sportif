@@ -7,7 +7,7 @@ Ce dépôt contient une application backend en PHP pour la gestion des membres, 
 ## Table des matières
 
 1. [Partie 1: PHP DAO/MVC](#partie-1-php-daomvc)
-    - [Base de données](#classes)
+    - [Base de données](#Base-de-données)
     - [Classes](#classes)
     - [Fonctionnalités](#fonctionnalités)
     - [Bonus](#bonus)
