@@ -19,13 +19,13 @@ class Educateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column]
-    private array $roles = [];
+    private bool $est_administrateur;
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
-    private ?string $password = null;
+    private ?string $mot_de_passe = null;
 
     public function getId(): ?int
     {
@@ -59,7 +59,12 @@ class Educateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        $admin = $this->est_administrateur;
+
+        if($admin == 1){
+            $roles[] = 'ROLE_ADMIN';
+        }
+
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
@@ -68,8 +73,7 @@ class Educateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): static
     {
-        $this->roles = $roles;
-
+        in_array('ROLE_ADMIN', $roles) ? $this->est_administrateur = 0 : $this->est_administrateur = 1 ;
         return $this;
     }
 
@@ -78,12 +82,12 @@ class Educateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
-        return $this->password;
+        return $this->mot_de_passe;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $mot_de_passe): static
     {
-        $this->password = $password;
+        $this->mot_de_passe = $mot_de_passe;
 
         return $this;
     }
