@@ -1,0 +1,21 @@
+<h1>Liste des Utilisateurs</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Numéro de téléphone</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for utilisateur in utilisateurs %}
+        <tr>
+            <td>{{ utilisateur.nom }}</td>
+            <td>{{ utilisateur.prenom }}</td>
+            <td>{{ utilisateur.email }}</td>
+            <td>{{ utilisateur.numero_tel }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
