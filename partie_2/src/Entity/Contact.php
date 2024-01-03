@@ -24,8 +24,8 @@ class Contact
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $numero_tel = null;
+    #[ORM\Column( name: 'numero_tel', length: 255)]
+    private ?string $numeroTel = null;
 
     #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Licencie::class)]
     private Collection $licencies;
@@ -78,12 +78,12 @@ class Contact
 
     public function getNumeroTel(): ?string
     {
-        return $this->numero_tel;
+        return $this->numeroTel;
     }
 
-    public function setNumeroTel(string $numero_tel): static
+    public function setNumeroTel(string $numeroTel): static
     {
-        $this->numero_tel = $numero_tel;
+        $this->numeroTel = $numeroTel;
 
         return $this;
     }

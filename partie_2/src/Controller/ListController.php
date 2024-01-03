@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
+use App\Repository\ContactRepository;
 use App\Repository\LicencieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -16,11 +17,13 @@ class ListController extends AbstractController
 
     private CategorieRepository $categorieRepository;
     private LicencieRepository $licencieRepository;
+    private ContactRepository $contactRepository;
 
-    public function __construct(CategorieRepository $categorieRepository, LicencieRepository $licencieRepository)
+    public function __construct(CategorieRepository $categorieRepository, LicencieRepository $licencieRepository, ContactRepository $contactRepository)
     {
-        $this->categorieRepository= $categorieRepository;
-        $this->licencieRepository= $licencieRepository;
+        $this->categorieRepository = $categorieRepository;
+        $this->licencieRepository = $licencieRepository;
+        $this->contactRepository = $contactRepository;
     }
 
     #[Route(path: '/list', name: 'app_list')]
@@ -50,11 +53,10 @@ class ListController extends AbstractController
             $list = $data['liste'];
             $categorie = $data['categorie'];
             if($list == 'contact') {
-                // do something
-                return $this->redirectToRoute('app_list_licencie');
+                $contacts = $this->contactRepository->getContactsByCategory($categorie->getId());
+                return $this->render('contact.html.twig', ["contacts" => $contacts, "categorie" => $categorie]);
             } else {
                 $licencie = $this->licencieRepository->findBy(["categorie" => $categorie->getId()]);
-                // return $this->redirectToRoute('app_list_licencie', ["licencie" => $licencie, "categorie" => $categorie]);
                 return $this->render('licencie.html.twig', ["licencie" => $licencie, "categorie" => $categorie]);
             }
         }
