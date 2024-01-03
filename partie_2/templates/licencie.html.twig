@@ -1,20 +1,16 @@
-<h1>Liste des Utilisateurs</h1>
+<h1>Liste des licencié de la categorie {{ categorie.nom }}</h1>
 <table border="1">
     <thead>
     <tr>
         <th>Nom</th>
         <th>Prénom</th>
-        <th>Email</th>
-        <th>Numéro de téléphone</th>
     </tr>
     </thead>
     <tbody>
-    {% for utilisateur in utilisateurs %}
+    {% for licencie in licencie %}
         <tr>
-            <td>{{ utilisateur.nom }}</td>
-            <td>{{ utilisateur.prenom }}</td>
-            <td>{{ utilisateur.email }}</td>
-            <td>{{ utilisateur.numero_tel }}</td>
+            <td>{{ licencie.nom }}</td>
+            <td>{{ licencie.prenom }}</td>
         </tr>
     {% endfor %}
     </tbody>

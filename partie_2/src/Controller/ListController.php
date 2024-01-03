@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
+use App\Repository\LicencieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,16 +14,15 @@ use Symfony\Component\HttpFoundation\Response;
 class ListController extends AbstractController
 {
 
-    private $categorieRepository;
+    private CategorieRepository $categorieRepository;
+    private LicencieRepository $licencieRepository;
 
-    public function __construct(CategorieRepository $categorieRepository)
+    public function __construct(CategorieRepository $categorieRepository, LicencieRepository $licencieRepository)
     {
         $this->categorieRepository= $categorieRepository;
+        $this->licencieRepository= $licencieRepository;
     }
 
-    /**
-     * @Route("/votre-route", name="votre_route")
-     */
     #[Route(path: '/list', name: 'app_list')]
     public function ListerParCategory(Request $request): Response
     {
@@ -30,7 +31,7 @@ class ListController extends AbstractController
             ->add('liste', ChoiceType::class, [
                 'choices' => [
                     'Licencié' => 'licencie',
-                    'Contacts' => 'contacts',
+                    'Contact' => 'contact',
                 ],
                 'multiple' => false,
                 'expanded' => false,
@@ -47,13 +48,14 @@ class ListController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $list = $data['liste'];
-
-            if($list == 'categorie') {
-                // do something
-                return $this->redirectToRoute('app_list_licencie'); // Redirigez après traitement
-            } else {
+            $categorie = $data['categorie'];
+            if($list == 'contact') {
                 // do something
                 return $this->redirectToRoute('app_list_licencie');
+            } else {
+                $licencie = $this->licencieRepository->findBy(["categorie" => $categorie->getId()]);
+                // return $this->redirectToRoute('app_list_licencie', ["licencie" => $licencie, "categorie" => $categorie]);
+                return $this->render('licencie.html.twig', ["licencie" => $licencie, "categorie" => $categorie]);
             }
         }
 
@@ -62,14 +64,15 @@ class ListController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/votre-route", name="votre_route")
-     */
     #[Route(path: '/list/licencie', name: 'app_list_licencie')]
-    public function licencie(): Response {
+    public function licencie(Request $request): Response {
+        $licencie = $request->query->get('licencie');
+        $categorie = $request->query->get('licencie');
+        // dd($licencie);
         return $this->render('licencie.html.twig',
             [
-                'form' => $form->createView(),
+                'licencie' => $licencie,
+                "categorie" => $categorie,
             ]
         );
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContactRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
@@ -24,6 +26,14 @@ class Contact
 
     #[ORM\Column(length: 255)]
     private ?string $numero_tel = null;
+
+    #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Licencie::class)]
+    private Collection $licencies;
+
+    public function __construct()
+    {
+        $this->licencies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +84,36 @@ class Contact
     public function setNumeroTel(string $numero_tel): static
     {
         $this->numero_tel = $numero_tel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Licencie>
+     */
+    public function getLicencies(): Collection
+    {
+        return $this->licencies;
+    }
+
+    public function addLicencie(Licencie $licencie): static
+    {
+        if (!$this->licencies->contains($licencie)) {
+            $this->licencies->add($licencie);
+            $licencie->setContact($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLicencie(Licencie $licencie): static
+    {
+        if ($this->licencies->removeElement($licencie)) {
+            // set the owning side to null (unless already changed)
+            if ($licencie->getContact() === $this) {
+                $licencie->setContact(null);
+            }
+        }
 
         return $this;
     }
