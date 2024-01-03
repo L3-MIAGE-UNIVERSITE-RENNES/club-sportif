@@ -52,6 +52,26 @@ CREATE TABLE educateur (
  FOREIGN KEY (numero_licence) REFERENCES licencie(numero_licence) ON DELETE SET NULL
 );
 
+-- AJOUTER POUR LA PARTIE 2
+
+CREATE TABLE mailEducateur (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ date_envoi DATETIME NOT NULL,
+ objet VARCHAR(255) NOT NULL,
+ message TEXT NOT NULL,
+ id_educateur INT,
+ FOREIGN KEY (id_educateur) REFERENCES educateur(id) ON DELETE SET NULL
+);
+
+CREATE TABLE mailContact (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ date_envoi DATETIME NOT NULL,
+ objet VARCHAR(255) NOT NULL,
+ message TEXT NOT NULL,
+ id_contact INT,
+ FOREIGN KEY (id_contact) REFERENCES contact(id) ON DELETE SET NULL
+);
+
 ```
 
 ### Classes
