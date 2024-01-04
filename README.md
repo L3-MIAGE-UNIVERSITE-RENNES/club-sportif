@@ -54,22 +54,27 @@ CREATE TABLE educateur (
 
 -- AJOUTER POUR LA PARTIE 2
 
-CREATE TABLE mailEducateur (
- id INT AUTO_INCREMENT PRIMARY KEY,
- date_envoi DATETIME NOT NULL,
- objet VARCHAR(255) NOT NULL,
- message TEXT NOT NULL,
- id_educateur INT,
- FOREIGN KEY (id_educateur) REFERENCES educateur(id) ON DELETE SET NULL
+CREATE TABLE mail (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date_envoi DATETIME NOT NULL,
+    objet VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL
 );
 
-CREATE TABLE mailContact (
- id INT AUTO_INCREMENT PRIMARY KEY,
- date_envoi DATETIME NOT NULL,
- objet VARCHAR(255) NOT NULL,
- message TEXT NOT NULL,
- id_contact INT,
- FOREIGN KEY (id_contact) REFERENCES contact(id) ON DELETE SET NULL
+CREATE TABLE mail_educateur (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_mail INT,
+    id_educateur INT,
+    FOREIGN KEY (id_mail) REFERENCES mail(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_educateur) REFERENCES educateur(id) ON DELETE CASCADE
+);
+
+CREATE TABLE mail_contact (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_mail INT,
+    id_contact INT,
+    FOREIGN KEY (id_mail) REFERENCES mail(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_contact) REFERENCES contact(id) ON DELETE CASCADE
 );
 
 ```
