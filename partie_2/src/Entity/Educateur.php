@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\EducateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -26,6 +29,18 @@ class Educateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $mot_de_passe = null;
+
+    #[ORM\OneToMany(mappedBy: 'expediteur', targetEntity: MailEducateur::class)]
+    private Collection $mailEnvoyes;
+
+    #[ORM\ManyToMany(targetEntity: MailEducateur::class, mappedBy: 'destinataires', fetch: 'EAGER')]
+    private Collection $mailRecus;
+
+    public function __construct()
+    {
+        $this->mailEnvoyes = new ArrayCollection();
+        $this->mailRecus = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -99,5 +114,62 @@ class Educateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, MailEducateur>
+     */
+    public function getMailEnvoyes(): Collection
+    {
+        return $this->mailEnvoyes;
+    }
+
+    public function addMailEducateur(MailEducateur $mailEducateur): static
+    {
+        if (!$this->mailEnvoyes->contains($mailEducateur)) {
+            $this->mailEnvoyes->add($mailEducateur);
+            $mailEducateur->setExpediteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMailEducateur(MailEducateur $mailEducateur): static
+    {
+        if ($this->mailEnvoyes->removeElement($mailEducateur)) {
+            // set the owning side to null (unless already changed)
+            if ($mailEducateur->getExpediteur() === $this) {
+                $mailEducateur->setExpediteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MailEducateur>
+     */
+    public function getMailRecus(): Collection
+    {
+        return $this->mailRecus;
+    }
+
+    public function addMailRecu(MailEducateur $mailRecu): static
+    {
+        if (!$this->mailRecus->contains($mailRecu)) {
+            $this->mailRecus->add($mailRecu);
+            $mailRecu->addDestinataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMailRecu(MailEducateur $mailRecu): static
+    {
+        if ($this->mailRecus->removeElement($mailRecu)) {
+            $mailRecu->removeDestinataire($this);
+        }
+
+        return $this;
     }
 }

@@ -1,0 +1,21 @@
+<h1>Liste des emails envoyés aux educateurs</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Numero de telephone</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for contact in contacts %}
+        <tr>
+            <td>{{ contact.nom }}</td>
+            <td>{{ contact.prenom }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.numeroTel }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

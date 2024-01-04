@@ -1,0 +1,23 @@
+<h1>Mails envoyés</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Date d'envoie</th>
+        <th>Objet</th>
+        <th>Destinataires</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for mail in mails %}
+        <tr>
+            <td>{{ mail.dateEnvoi | date('d/m/Y') }}</td>
+            <td>{{ mail.objet }}</td>
+            <td>
+                {% for destinataire in mail.destinataires %}
+                    {{ destinataire.email }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
