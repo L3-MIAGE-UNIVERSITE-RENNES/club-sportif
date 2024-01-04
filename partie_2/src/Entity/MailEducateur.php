@@ -77,7 +77,6 @@ class MailEducateur
     public function setMessage(string $message): static
     {
         $this->message = $message;
-
         return $this;
     }
 
@@ -89,7 +88,6 @@ class MailEducateur
     public function setExpediteur(?Educateur $expediteur): static
     {
         $this->expediteur = $expediteur;
-
         return $this;
     }
 
@@ -113,7 +111,6 @@ class MailEducateur
     public function removeDestinataire(Educateur $destinataire): static
     {
         $this->destinataires->removeElement($destinataire);
-
         return $this;
     }
 }

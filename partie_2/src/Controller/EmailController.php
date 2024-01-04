@@ -39,7 +39,7 @@ class EmailController extends AbstractController
         $this->educateurRepository = $educateurRepository;
     }
 
-    #[Route(path: '/email', name: 'app_email')]
+    #[Route(path: '/mail', name: 'app_mail')]
     public function DisplayEmail(Request $request): Response
     {
         $categories = $this->categorieRepository->findAll();
@@ -59,9 +59,7 @@ class EmailController extends AbstractController
             $data = $form->getData();
             $list = $data['liste'];
             if($list == 'educateur') {
-                // TODO; Get id from auth user after having implemented authentification
-                $mails = $this->mailEducateurRepository->getByEducateurId(21);
-                return $this->render('educateur.email.list.html.twig', ["mails" => $mails]);
+                return $this->redirectToRoute('app_mail_educateur');
             } else {
                 $licencie = $this->licencieRepository->findBy(["categorie" => $categorie->getId()]);
                 return $this->render('contact.email.list.html.twig', ["licencie" => $licencie, "categorie" => $categorie]);
@@ -73,17 +71,35 @@ class EmailController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/list/licencie', name: 'app_list_licencie')]
-    public function licencie(Request $request): Response {
-        $licencie = $request->query->get('licencie');
-        $categorie = $request->query->get('licencie');
-        // dd($licencie);
-        return $this->render('licencie.html.twig',
-            [
-                'licencie' => $licencie,
-                "categorie" => $categorie,
-            ]
-        );
+    #[Route(path: '/mails/educateur', name: 'app_mail_educateur')]
+    public function educateurEmails(Request $request): Response
+    {   // TODO; Get id from auth user after having implemented authentification
+        $mails = $this->mailEducateurRepository->getByEducateurId(21);
+        return $this->render('educateur.email.list.html.twig', ["mails" => $mails]);
+    }
+
+
+    #[Route(path: '/mail/send', name: 'app_send_mail_educateur')]
+    public function sendMailEducateur(Request $request): Response {
+        echo "ahah";
+        return $this->render('base.html.twig', [
+        ]);
+    }
+
+    #[Route(path: '/mail/view', name: 'app_view_mail_educateur')]
+    public function viewMailEducateur(Request $request): Response {
+        $id = $request->query->get('id');
+        $mail = $this->mailEducateurRepository->findOneBy(["id" => $id]);
+        return $this->render('base.html.twig', [
+            'mail' => $mail
+        ]);
+    }
+
+    #[Route(path: '/mail/delete', name: 'app_delete_mail_educateur')]
+    public function deleteMailEducateur(Request $request): Response {
+        $id = $request->query->get('id');
+        $this->mailEducateurRepository->deleteById($id);
+        return $this->redirectToRoute('app_mail_educateur');
     }
 }
 

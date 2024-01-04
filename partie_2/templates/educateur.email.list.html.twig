@@ -1,10 +1,13 @@
 <h1>Mails envoyés</h1>
+<a href="{{ path('app_send_mail_educateur') }}" class="btn btn-primary">Nouveau mail</a>
 <table border="1">
+
     <thead>
     <tr>
         <th>Date d'envoie</th>
         <th>Objet</th>
         <th>Destinataires</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -17,6 +20,8 @@
                     {{ destinataire.email }}{% if not loop.last %}, {% endif %}
                 {% endfor %}
             </td>
+            <td><a href="{{ path('app_view_mail_educateur', {'id': mail.id}) }}" class="btn btn-primary">View</a></td>
+            <td><a href="{{ path('app_delete_mail_educateur', {'id': mail.id}) }}" class="btn btn-danger">Delete</a></td>
         </tr>
     {% endfor %}
     </tbody>

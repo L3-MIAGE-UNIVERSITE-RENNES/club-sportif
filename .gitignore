@@ -7,4 +7,5 @@
 /partie_2/public/bundles/
 /partie_2/var/
 /partie_2/vendor/
+/partie_2/node_modules/
 ###< symfony/framework-bundle ###

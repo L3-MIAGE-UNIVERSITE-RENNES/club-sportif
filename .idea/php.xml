@@ -73,6 +73,17 @@
       <path value="$PROJECT_DIR$/partie_2/vendor/symfony/property-info" />
       <path value="$PROJECT_DIR$/partie_2/vendor/symfony/password-hasher" />
       <path value="$PROJECT_DIR$/partie_2/vendor/symfony/clock" />
+      <path value="$PROJECT_DIR$/partie_2/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/partie_2/vendor/symfony/twig-bundle" />
+      <path value="$PROJECT_DIR$/partie_2/vendor/symfony/twig-bridge" />
+      <path value="$PROJECT_DIR$/partie_2/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/partie_2/vendor/symfony/validator" />
+      <path value="$PROJECT_DIR$/partie_2/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/partie_2/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/partie_2/vendor/symfony/form" />
+      <path value="$PROJECT_DIR$/partie_2/vendor/symfony/monolog-bridge" />
+      <path value="$PROJECT_DIR$/partie_2/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/partie_2/vendor/symfony/monolog-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />

@@ -21,6 +21,15 @@ class MailEducateurRepository extends ServiceEntityRepository
         parent::__construct($registry, MailEducateur::class);
     }
 
+    public function deleteById($id)
+    {
+        $item = $this->find($id);
+        if ($item) {
+            $this->_em->remove($item);
+            $this->_em->flush();
+        }
+    }
+
     public function getByEducateurId($id)
     {
         return $this->createQueryBuilder('m')
