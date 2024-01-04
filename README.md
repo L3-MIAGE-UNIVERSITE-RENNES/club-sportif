@@ -52,30 +52,7 @@ CREATE TABLE educateur (
  FOREIGN KEY (numero_licence) REFERENCES licencie(numero_licence) ON DELETE SET NULL
 );
 
--- AJOUTER POUR LA PARTIE 2
-
-CREATE TABLE mail (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    date_envoi DATETIME NOT NULL,
-    objet VARCHAR(255) NOT NULL,
-    message TEXT NOT NULL
-);
-
-CREATE TABLE mail_educateur (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_mail INT,
-    id_educateur INT,
-    FOREIGN KEY (id_mail) REFERENCES mail(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_educateur) REFERENCES educateur(id) ON DELETE CASCADE
-);
-
-CREATE TABLE mail_contact (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_mail INT,
-    id_contact INT,
-    FOREIGN KEY (id_mail) REFERENCES mail(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_contact) REFERENCES contact(id) ON DELETE CASCADE
-);
+-- Les tables supplementaires de la partie 2 sont migré automatiquement.
 
 ```
 
