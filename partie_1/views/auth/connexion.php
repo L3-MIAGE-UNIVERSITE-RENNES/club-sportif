@@ -34,7 +34,7 @@
 <main class="form-signin">
     <form action="../../controllers/auth/ConnexionController.php" method="post">
         <img class="mb-4" src="../../assets/brand/stadium.png" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">Connexion !</h1>
+        <h1 class="h3 mb-3 fw-normal">CLUB SPORTIF</h1>
 
         <div class="form-floating">
             <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
