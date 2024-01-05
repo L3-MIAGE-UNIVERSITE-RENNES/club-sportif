@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Categorie;
-use App\Entity\MailContact;
 use App\Entity\MailEducateur;
 use App\Repository\CategorieRepository;
 use App\Repository\ContactRepository;
 use App\Repository\EducateurRepository;
 use App\Repository\LicencieRepository;
 use App\Repository\MailEducateurRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +43,6 @@ class EmailController extends AbstractController
     #[Route(path: '/mail', name: 'app_mail')]
     public function DisplayEmail(Request $request): Response
     {
-        $categories = $this->categorieRepository->findAll();
         $form = $this->createFormBuilder()
             ->add('liste', ChoiceType::class, [
                 'choices' => [
@@ -75,14 +75,55 @@ class EmailController extends AbstractController
     public function educateurEmails(Request $request): Response
     {   // TODO; Get id from auth user after having implemented authentification
         $mails = $this->mailEducateurRepository->getByEducateurId(21);
-        return $this->render('educateur.email.list.html.twig', ["mails" => $mails]);
+        return $this->render('mail/educateur/list.html.twig', ["mails" => $mails]);
     }
 
 
     #[Route(path: '/mail/send', name: 'app_send_mail_educateur')]
     public function sendMailEducateur(Request $request): Response {
-        echo "ahah";
-        return $this->render('base.html.twig', [
+        $educateurs = $this->educateurRepository->findAll();
+        $form = $this->createFormBuilder()->add('objet', TextType::class, [
+                'label' => 'Objet: ',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Objet...',
+                ]])->add('message', TextareaType::class, [
+                'required' => true,
+                'label' => 'Message: ',
+                'attr' => [
+                    'placeholder' => 'Entrer votre message ici..',
+                ]])->add('destinataires', ChoiceType::class, [
+                'label' => 'Destinataire: ',
+                'choices' => $educateurs,
+                'choice_label' => 'email',
+                'choice_value' => 'id',
+                'multiple' => true,
+                'expanded' => false,
+            ])->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $mail  = new MailEducateur();
+            $mail->setObjet($data['objet']);
+            $mail->setMessage($data['message']);
+            $now = new DateTime();
+            $mail->setDateEnvoi($now);
+
+            // TODO; Complete this after auth
+            $expediteur = $this->educateurRepository->findOneBy(['id'=> 21]);
+            $mail->setExpediteur($expediteur);
+
+            foreach ($data['destinataires'] as $value) {
+                $mail->addDestinataire($value);
+            }
+            $this->mailEducateurRepository->send($mail);
+            return $this->redirectToRoute('app_mail_educateur');
+        }
+
+        return $this->render('mail/educateur/send.html.twig', [
+            'form'=>$form->createView()
         ]);
     }
 
@@ -97,7 +138,7 @@ class EmailController extends AbstractController
 
     #[Route(path: '/mail/delete', name: 'app_delete_mail_educateur')]
     public function deleteMailEducateur(Request $request): Response {
-        $id = $request->query->gjet('id');
+        $id = $request->query->get('id');
         $this->mailEducateurRepository->deleteById($id);
         return $this->redirectToRoute('app_mail_educateur');
     }

@@ -21,6 +21,19 @@ class MailEducateurRepository extends ServiceEntityRepository
         parent::__construct($registry, MailEducateur::class);
     }
 
+    public function send(MailEducateur $mailEducateur): void
+    {
+        try {
+            $this->_em->persist($mailEducateur);
+            $this->_em->flush();
+        } catch (\Exception $e) {
+            // Handle the exception
+            echo "An error occurred while sending the mail: " . $e->getMessage();
+        }
+    }
+
+
+
     public function deleteById($id)
     {
         $item = $this->find($id);
