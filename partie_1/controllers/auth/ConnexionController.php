@@ -15,6 +15,7 @@
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $email = $_POST['email'];
                 $mot_de_passe = $_POST['mot_de_passe'];
+                echo $email;
                 // Validation du formulaire
                 if (isset($email) &&  isset($mot_de_passe)) {
                     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

@@ -19,12 +19,12 @@
 
         public function getById($id) {
             try {
-                $stmt = $this->connexion->pdo->prepare("SELECT * FROM educateur WHERE id_educateur = ?");
+                $stmt = $this->connexion->pdo->prepare("SELECT * FROM educateur WHERE id = ?");
                 $stmt->execute([$id]);
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($row) {
-                    return new Educateur($row['id_educateur'], $row['numero_licence'], $row['email'], $row['mot_de_passe'], $row['est_administrateur']);
+                    return new Educateur($row['id'], $row['numero_licence'], $row['email'], $row['mot_de_passe'], $row['est_administrateur']);
                 } else {
                     return null;
                 }
@@ -40,7 +40,7 @@
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($row) {
-                    return new Educateur($row['id_educateur'], $row['numero_licence'], $row['email'], $row['mot_de_passe'], $row['est_administrateur']);
+                    return new Educateur($row['id'], $row['numero_licence'], $row['email'], $row['mot_de_passe'], $row['est_administrateur']);
                 } else {
                     return null;
                 }
@@ -55,7 +55,7 @@
                 $educateurs = [];
 
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $educateurs[] = new Educateur($row['id_educateur'], $row['numero_licence'], $row['email'], $row['mot_de_passe'], $row['est_administrateur']);
+                    $educateurs[] = new Educateur($row['id'], $row['numero_licence'], $row['email'], $row['mot_de_passe'], $row['est_administrateur']);
                 }
 
                 return $educateurs;
@@ -66,7 +66,7 @@
 
         public function update(Educateur $educateur) {
             try {
-                $stmt = $this->connexion->pdo->prepare("UPDATE educateur SET id_educateur = ?, numero_licence = ?, email = ?, mot_de_passe = ?, est_administrateur = ? WHERE id_educateur = ?");
+                $stmt = $this->connexion->pdo->prepare("UPDATE educateur SET id = ?, numero_licence = ?, email = ?, mot_de_passe = ?, est_administrateur = ? WHERE id = ?");
                 $stmt->execute([$educateur->getIdEducateur(), $educateur->getNumeroLicence(), $educateur->getEmail(), $educateur->getMotDePasse(), $educateur->getEstAdministrateur(), $educateur->getIdEducateur()]);
                 return true;
             } catch (PDOException $e) {
@@ -77,7 +77,7 @@
 
         public function deleteById($id) {
             try {
-                $stmt = $this->connexion->pdo->prepare("DELETE FROM educateur WHERE id_educateur = ?");
+                $stmt = $this->connexion->pdo->prepare("DELETE FROM educateur WHERE id = ?");
                 $stmt->execute([$id]);
                 return true;
             } catch (PDOException $e) {
