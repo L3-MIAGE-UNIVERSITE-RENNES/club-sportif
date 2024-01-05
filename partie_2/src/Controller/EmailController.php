@@ -90,14 +90,14 @@ class EmailController extends AbstractController
     public function viewMailEducateur(Request $request): Response {
         $id = $request->query->get('id');
         $mail = $this->mailEducateurRepository->findOneBy(["id" => $id]);
-        return $this->render('base.html.twig', [
+        return $this->render('mail/educateur/view.html.twig', [
             'mail' => $mail
         ]);
     }
 
     #[Route(path: '/mail/delete', name: 'app_delete_mail_educateur')]
     public function deleteMailEducateur(Request $request): Response {
-        $id = $request->query->get('id');
+        $id = $request->query->gjet('id');
         $this->mailEducateurRepository->deleteById($id);
         return $this->redirectToRoute('app_mail_educateur');
     }

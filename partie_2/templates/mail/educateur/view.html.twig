@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Afficher le courrier électronique{% endblock %}
+
+{% block body %}
+    <h1>{{ mail.objet }}</h1>
+    <div>
+        <p>{{ mail.message }}</p>
+    </div>
+    <p>Date d'envoi : {{ mail.dateEnvoi|date('d/m/Y') }}</p>
+    <!-- Liste des destinataires -->
+    <p>destinataires</p>
+    <ul>
+        {% for destinataire in mail.destinataires %}
+            <li>{{ destinataire.email }}</li>
+        {% endfor %}
+    </ul>
+    <p><!-- Lien pour supprimer le mail -->
+        <a href="{{ path('app_delete_mail_educateur', {'id': mail.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce courrier électronique ?')">Supprimer</a>
+    </p>
+    <!-- Lien pour retourner à la liste des mails -->
+    <a href="{{ path('app_mail_educateur') }}">Retour à la liste des mails</a>
+
+{% endblock %}
