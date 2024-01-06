@@ -54,14 +54,14 @@ class ListController extends AbstractController
             $categorie = $data['categorie'];
             if($list == 'contact') {
                 $contacts = $this->contactRepository->getContactsByCategory($categorie->getId());
-                return $this->render('contact.html.twig', ["contacts" => $contacts, "categorie" => $categorie]);
+                return $this->render('list/contact.html.twig', ["contacts" => $contacts, "categorie" => $categorie]);
             } else {
                 $licencie = $this->licencieRepository->findBy(["categorie" => $categorie->getId()]);
-                return $this->render('licencie.html.twig', ["licencie" => $licencie, "categorie" => $categorie]);
+                return $this->render('list/licencie.html.twig', ["licencie" => $licencie, "categorie" => $categorie]);
             }
         }
 
-        return $this->render('list.html.twig', [
+        return $this->render('list/list.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -70,8 +70,7 @@ class ListController extends AbstractController
     public function licencie(Request $request): Response {
         $licencie = $request->query->get('licencie');
         $categorie = $request->query->get('licencie');
-        // dd($licencie);
-        return $this->render('licencie.html.twig',
+        return $this->render('list/licencie.html.twig',
             [
                 'licencie' => $licencie,
                 "categorie" => $categorie,

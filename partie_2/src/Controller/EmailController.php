@@ -62,7 +62,7 @@ class EmailController extends AbstractController
                 return $this->redirectToRoute('app_mail_educateur');
             } else {
                 $licencie = $this->licencieRepository->findBy(["categorie" => $categorie->getId()]);
-                return $this->render('contact.email.list.html.twig', ["licencie" => $licencie, "categorie" => $categorie]);
+                return $this->render('list.html.twig', ["licencie" => $licencie, "categorie" => $categorie]);
             }
         }
 
