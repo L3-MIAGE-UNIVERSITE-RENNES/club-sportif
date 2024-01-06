@@ -73,8 +73,9 @@ class EmailController extends AbstractController
 
     #[Route(path: '/mails/educateur', name: 'app_mail_educateur')]
     public function educateurEmails(Request $request): Response
-    {   // TODO; Get id from auth user after having implemented authentification
-        $mails = $this->mailEducateurRepository->getByEducateurId(21);
+    {
+        $userId = $this->getUser()->getId();
+        $mails = $this->mailEducateurRepository->getByEducateurId($userId);
         return $this->render('mail/educateur/list.html.twig', ["mails" => $mails]);
     }
 
@@ -111,8 +112,8 @@ class EmailController extends AbstractController
             $now = new DateTime();
             $mail->setDateEnvoi($now);
 
-            // TODO; Complete this after auth
-            $expediteur = $this->educateurRepository->findOneBy(['id'=> 21]);
+            $userId = $this->getUser()->getId();
+            $expediteur = $this->educateurRepository->findOneBy(['id'=> $userId]);
             $mail->setExpediteur($expediteur);
 
             foreach ($data['destinataires'] as $value) {
