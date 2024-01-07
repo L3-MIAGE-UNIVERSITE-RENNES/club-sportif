@@ -1,20 +1,27 @@
-<h1>Liste des emails envoyés aux educateurs</h1>
+<h1>Mails envoyés</h1>
+<a href="{{ path('app_send_mail_contact') }}" class="btn btn-primary">Nouveau mail</a>
 <table border="1">
+
     <thead>
     <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Email</th>
-        <th>Numero de telephone</th>
+        <th>Date d'envoie</th>
+        <th>Objet</th>
+        <th>Destinataires</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    {% for contact in contacts %}
+    {% for mail in mails %}
         <tr>
-            <td>{{ contact.nom }}</td>
-            <td>{{ contact.prenom }}</td>
-            <td>{{ contact.email }}</td>
-            <td>{{ contact.numeroTel }}</td>
+            <td>{{ mail.dateEnvoi | date('d/m/Y') }}</td>
+            <td>{{ mail.objet }}</td>
+            <td>
+                {% for destinataire in mail.destinataires %}
+                    {{ destinataire.email }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+            <td><a href="{{ path('app_view_mail_contact', {'id': mail.id}) }}" class="btn btn-primary">Voir</a></td>
+            <td><a href="{{ path('app_delete_mail_contact', {'id': mail.id}) }}" class="btn btn-danger">Supprimer</a></td>
         </tr>
     {% endfor %}
     </tbody>

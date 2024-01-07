@@ -26,15 +26,17 @@ class MailContact
     #[ORM\Column(length: 255)]
     private ?string $message = null;
 
-    #[ORM\ManyToOne(inversedBy: 'mailContacts')]
-    private ?Contact $contact = null;
+    #[ORM\ManyToMany(targetEntity: Contact::class)]
+    #[ORM\JoinTable(name: 'mail_educateur_contact')]
+    private Collection $destinataires;
 
-    #[ORM\ManyToMany(targetEntity: Educateur::class, mappedBy: 'destinataires', fetch: 'EAGER')]
-    private Collection $educateurs;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Educateur $expediteur = null;
 
     public function __construct()
     {
-        $this->educateurs = new ArrayCollection();
+        $this->destinataires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,41 +80,38 @@ class MailContact
         return $this;
     }
 
-    public function getContact(): ?Contact
-    {
-        return $this->contact;
-    }
-
-    public function setContact(?Contact $contact): static
-    {
-        $this->contact = $contact;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Educateur>
+     * @return Collection<int, Contact>
      */
-    public function getEducateurs(): Collection
+    public function getDestinataires(): Collection
     {
-        return $this->educateurs;
+        return $this->destinataires;
     }
 
-    public function addEducateur(Educateur $educateur): static
+    public function addDestinataire(Contact $destinataire): static
     {
-        if (!$this->educateurs->contains($educateur)) {
-            $this->educateurs->add($educateur);
-            $educateur->addDestinataire($this);
+        if (!$this->destinataires->contains($destinataire)) {
+            $this->destinataires->add($destinataire);
         }
 
         return $this;
     }
 
-    public function removeEducateur(Educateur $educateur): static
+    public function removeDestinataire(Contact $destinataire): static
     {
-        if ($this->educateurs->removeElement($educateur)) {
-            $educateur->removeDestinataire($this);
-        }
+        $this->destinataires->removeElement($destinataire);
+
+        return $this;
+    }
+
+    public function getExpediteur(): ?Educateur
+    {
+        return $this->expediteur;
+    }
+
+    public function setExpediteur(?Educateur $expediteur): static
+    {
+        $this->expediteur = $expediteur;
 
         return $this;
     }

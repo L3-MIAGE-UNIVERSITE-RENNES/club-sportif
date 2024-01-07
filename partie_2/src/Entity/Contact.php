@@ -30,13 +30,12 @@ class Contact
     #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Licencie::class)]
     private Collection $licencies;
 
-    #[ORM\OneToMany(mappedBy: 'contact', targetEntity: MailContact::class)]
-    private Collection $mailContacts;
+    #[ORM\ManyToMany(targetEntity: MailContact::class, mappedBy: 'destinataires', fetch: 'EAGER')]
+    private Collection $mailRecus;
 
     public function __construct()
     {
         $this->licencies = new ArrayCollection();
-        $this->mailContacts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,28 +124,25 @@ class Contact
     /**
      * @return Collection<int, MailContact>
      */
-    public function getMailContacts(): Collection
+    public function getMailRecus(): Collection
     {
-        return $this->mailContacts;
+        return $this->mailRecus;
     }
 
-    public function addMailContact(MailContact $mailContact): static
+    public function addMailRecu(MailContact $mailRecu): static
     {
-        if (!$this->mailContacts->contains($mailContact)) {
-            $this->mailContacts->add($mailContact);
-            $mailContact->setContact($this);
+        if (!$this->mailRecus->contains($mailRecu)) {
+            $this->mailRecus->add($mailRecu);
+            $mailRecu->addDestinataire($this);
         }
 
         return $this;
     }
 
-    public function removeMailContact(MailContact $mailContact): static
+    public function removeMailRecu(MailContact $mailRecu): static
     {
-        if ($this->mailContacts->removeElement($mailContact)) {
-            // set the owning side to null (unless already changed)
-            if ($mailContact->getContact() === $this) {
-                $mailContact->setContact(null);
-            }
+        if ($this->mailRecus->removeElement($mailRecu)) {
+            $mailRecu->removeDestinataire($this);
         }
 
         return $this;
