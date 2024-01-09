@@ -1,4 +1,4 @@
-# Template - Application Club Sportif
+# Application Club Sportif
 
 ## Aperçu
 
@@ -149,4 +149,7 @@ Veuillez fournir une vidéo de démonstration des fonctionnalités implémentée
 
 ## Contact
 
-Pour tout problème ou question, contactez [Votre Nom] à [votre.email@example.com].
+Pour tout problème ou question, contactez : 
+ - TRO KOPE EMMANUEL à kope-emmanuel-j.tro@etudiant.univ-rennes1.fr
+ - OLIVE IRAKOZE à olive-audrey.irakoze@etudiant.univ-rennes1.fr
+
