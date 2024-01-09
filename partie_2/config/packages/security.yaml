@@ -46,7 +46,6 @@ security:
         - { path: ^/list, roles: ROLE_ADMIN }
         - { path: ^/mail, roles: ROLE_ADMIN }
         - { path: ^/home, roles: ROLE_ADMIN }
-        - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     security:

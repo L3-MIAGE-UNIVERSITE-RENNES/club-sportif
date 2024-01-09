@@ -1,21 +1,28 @@
-<h1>Liste des contacts de la categorie {{ categorie.nom }}</h1>
-<table border="1">
-    <thead>
-    <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Email</th>
-        <th>Numero de telephone</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for contact in contacts %}
-        <tr>
-            <td>{{ contact.nom }}</td>
-            <td>{{ contact.prenom }}</td>
-            <td>{{ contact.email }}</td>
-            <td>{{ contact.numeroTel }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="text-center">Contacts de categorie {{ categorie.nom }}</h1>
+        <table class="table table-bordered table-striped mx-auto">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Numéro de téléphone</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ contact.nom }}</td>
+                    <td>{{ contact.prenom }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.numeroTel }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

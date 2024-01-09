@@ -1,17 +1,24 @@
-<h1>Liste des licenciés de la categorie {{ categorie.nom }}</h1>
-<table border="1">
-    <thead>
-    <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for licencie in licencie %}
-        <tr>
-            <td>{{ licencie.nom }}</td>
-            <td>{{ licencie.prenom }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="text-center">Licenciés de la catégorie {{ categorie.nom  }}</h1>
+        <table class="table table-bordered table-hover mx-auto">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for licencie in licencie %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ licencie.nom }}</td>
+                    <td>{{ licencie.prenom }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

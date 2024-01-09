@@ -1,24 +1,37 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Afficher le courrier électronique{% endblock %}
-
 {% block body %}
-    <h1>{{ mail.objet }}</h1>
-    <div>
-        <p>{{ mail.message }}</p>
+    <div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h1>{{ mail.objet }}</h1>
+        </div>
+        <div class="card-body">
+            <p>{{ mail.message }}</p>
+            <p>Date d'envoi : {{ mail.dateEnvoi|date('d/m/Y H:i:s') }}</p>
+            <!-- Liste des destinataires -->
+            <div class="accordion" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Destinataires
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% for destinataire in mail.destinataires %}
+                                <li class="list-group-item">{{ destinataire.email }}</li>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <!-- Lien pour supprimer le mail -->
+                    <a href="{{ path('app_delete_mail_educateur', {'id': mail.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce courrier électronique ?')" class="btn btn-danger">Supprimer</a>
+                    <!-- Lien pour retourner à la liste des mails -->
+                    <a href="{{ path('app_mail_educateur') }}" class="btn btn-primary">Retour</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <p>Date d'envoi : {{ mail.dateEnvoi|date('d/m/Y') }}</p>
-    <!-- Liste des destinataires -->
-    <p>destinataires</p>
-    <ul>
-        {% for destinataire in mail.destinataires %}
-            <li>{{ destinataire.email }}</li>
-        {% endfor %}
-    </ul>
-    <p><!-- Lien pour supprimer le mail -->
-        <a href="{{ path('app_delete_mail_educateur', {'id': mail.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce courrier électronique ?')">Supprimer</a>
-    </p>
-    <!-- Lien pour retourner à la liste des mails -->
-    <a href="{{ path('app_mail_educateur') }}">Retour à la liste des mails</a>
-
 {% endblock %}

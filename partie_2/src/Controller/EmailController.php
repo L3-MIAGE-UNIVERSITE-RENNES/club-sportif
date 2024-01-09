@@ -50,6 +50,7 @@ class EmailController extends AbstractController
     {
         $form = $this->createFormBuilder()
             ->add('liste', ChoiceType::class, [
+                'label' => 'Mails',
                 'choices' => [
                     'Educateur' => 'educateur',
                     'Contact' => 'contact',
@@ -66,8 +67,7 @@ class EmailController extends AbstractController
             if($list == 'educateur') {
                 return $this->redirectToRoute('app_mail_educateur');
             } else {
-                $licencie = $this->licencieRepository->findBy(["categorie" => $categorie->getId()]);
-                return $this->render('mail/educateur/list.html.twig', ["licencie" => $licencie, "categorie" => $categorie]);
+                return $this->redirectToRoute('app_mail_contact');
             }
         }
 
