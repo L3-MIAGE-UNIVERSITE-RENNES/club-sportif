@@ -1,21 +1,10 @@
-<?php require('../controllers/auth/guard.php'); ?>
+<?php require('../controllers/auth/guard.php'); ?><!DOCTYPE html>
+<?php ob_start(); ?>
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="card mx-auto w-50">
+        <p class="display-4 text-center font-weight-bold m-auto">BIENVENUE</p>
+    </div>
+</div
+<?php $content = ob_get_clean(); ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des Contacts</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-<h1>CLUB SPORTIF</h1>
-<nav>
-    <ul>
-        <li><a href="license.php">Licencié</a></li>
-        <li><a href="category.php">Categorie</a></li>
-        <li><a href="../controllers/educateur/ListEducateurController.php">Educateur</a></li>
-        <li><a href="../controllers/contact/ListContactController.php">Contact</a></li>
-    </ul>
-</nav>
-</body>
-</html>
+<?php require('layout.php') ?>

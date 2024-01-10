@@ -1,27 +1,36 @@
 <?php require('../../controllers/auth/guard.php'); ?><!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Ajouter un Contact</title>
-    <!-- Ajoutez ici vos liens CSS ou styles pour la mise en forme -->
-    <link rel="stylesheet" href="../css/styles.css">
 
-</head>
-<body>
-<h1>Ajouter un Educateur</h1>
-<a href="ListContactController.php">Retour à la liste des educateurs</a>
+<?php ob_start(); ?>
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="card mx-auto w-50">
+        <div class="card-body">
+            <h1>Ajouter un Contact</h1>
+            <form action="AddContactController.php" method="post">
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom :</label>
+                    <input type="text" id="nom" name="nom" class="form-control" required><br>
+                </div>
+                <div class="mb-3">
+                    <label for="prenom" class="form-label">Prénom :</label>
+                    <input type="text" id="prenom" name="prenom" class="form-control" required><br>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email :</label>
+                    <input type="email" id="email" name="email" class="form-control"><br>
+                </div>
+                <div class="mb-3">
+                    <label for="numero_tel" class="form-label">Téléphone :</label>
+                    <input type="tel" id="numero_tel" name="numero_tel" class="form-control"><br>
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <input type="submit" name="action" value="Ajouter" class="btn btn-primary">
+                    <a href="ListContactController.php" class="btn btn-sm btn-secondary">Retour</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div
 
-    <form action="AddContactController.php" method="post">
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required><br>
-        <label for="nom">Prenom :</label>
-        <input type="text" id="prenom" name="prenom" required><br>
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email"><br>
-        <label for="numero_tel">Telephone :</label>
-        <input type="numero_tel" id="numero_tel" name="numero_tel"><br>
-        <input type="submit" name="action" value="Ajouter">
-    </form>
-</body>
-</html>
+<?php $content = ob_get_clean(); ?>
+
+<?php require('../../views/layout.php') ?>
