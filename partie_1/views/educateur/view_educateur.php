@@ -1,20 +1,36 @@
 <?php require('../../controllers/auth/guard.php'); ?><!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Détails educateur</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-<h1>Détails educateur</h1>
-<a href="ListEducateurController.php">Retour à la liste des educateurs</a>
-
+<?php ob_start(); ?>
 <?php if ($educateur): ?>
-    <p><strong>Numero de licence :</strong> <?php echo $licencie->getNom(); ?></p>
-    <p><strong>Email :</strong> <?php echo $educateur->getEmail(); ?></p>
-    <p><strong>Administrateur :</strong> <?php echo $educateur->getEstAdministrateur() == 1 ? "oui" : "non"; ?></p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Numéro de licence :</strong></h5>
+                    <p class="card-text"><?php echo $licencie->getNom(); ?></p>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Email :</strong></h5>
+                    <p class="card-text"><?php echo $educateur->getEmail(); ?></p>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Administrateur :</strong></h5>
+                    <p class="card-text"><?php echo $educateur->getEstAdministrateur() == 1 ? "Oui" : "Non"; ?></p>
+                </div>
+            </div>
+            <a href="ListEducateurController.php" class="btn btn-primary mt-3">Retour à la liste des educateurs</a>
+        </div>
+    </div>
+</div>
 <?php else: ?>
-    <p>L'educateur n'a pas été trouvé.</p>
+    <p class="mt-3">L'éducateur n'a pas été trouvé.</p>
 <?php endif; ?>
-</body>
-</html>
+<?php $content = ob_get_clean(); ?>
+
+<?php require('../../views/layout.php') ?>
