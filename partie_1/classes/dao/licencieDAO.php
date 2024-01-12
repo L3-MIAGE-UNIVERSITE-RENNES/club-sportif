@@ -64,6 +64,7 @@ class LicencieDAO {
             $stmt->execute([$id]);
             return true;
         } catch (PDOException $e) {
+            print_r($e);
             return false;
         }
     }

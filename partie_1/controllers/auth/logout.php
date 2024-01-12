@@ -5,7 +5,6 @@
     // Destroy the session
     session_destroy();
 
-    // Redirect to the login page or any other page you want after logout
     header("Location:../../views/auth/connexion.php");
     exit();
 

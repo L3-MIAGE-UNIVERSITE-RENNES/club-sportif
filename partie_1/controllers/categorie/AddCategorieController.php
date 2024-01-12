@@ -51,7 +51,7 @@ require_once("../../classes/dao/licencieDAO.php");
 
 $categorieDAO = new CategorieDAO(new Connexion());
 $licencieDAO = new LicencieDAO(new Connexion());
-$controller = new AddCategorieController($categorieDAO, $licencieDAO);
+$controller = new AddCategorieController($categorieDAO);
 
 if(!isset($_POST['action'])){
     $controller->index();

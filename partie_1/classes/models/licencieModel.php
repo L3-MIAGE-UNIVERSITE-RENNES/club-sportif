@@ -1,5 +1,6 @@
 <?php
-    class Licencie {
+    class Licencie
+    {
         private $numero_licence;
         private $nom;
         private $prenom;
@@ -7,7 +8,10 @@
         private $id_categorie;
 
         public function __construct($numero_licence, $nom, $prenom, $id_contact, $id_categorie) {
-            $this->numero_licence = $numero_licence;
+            if(is_int($numero_licence))
+            {
+                $this->numero_licence = $numero_licence;
+            }
             $this->nom = $nom;
             $this->prenom = $prenom;
             $this->id_contact = $id_contact;

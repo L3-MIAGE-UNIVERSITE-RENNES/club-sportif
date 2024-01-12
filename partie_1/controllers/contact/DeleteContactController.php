@@ -5,7 +5,6 @@ class DeleteContactController
     public function __construct(ContactDAO $contactDAO) {
         $this->contactDAO = $contactDAO;
     }
-
     public function deleteContact($contactId) {
         // Retrieve the contact to delete using its ID
         $contact = $this->contactDAO->getById($contactId);

@@ -11,8 +11,8 @@
 <div class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <ul class="navbar-nav me-auto">
-            <li class="nav-item"><a class="nav-link" href="license.php">Licencié</a></li>
-            <li class="nav-item"><a class="nav-link" href="category.php">Categorie</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>/controllers/licencie/ListLicencieController.php">Licencié</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>/controllers/categorie/ListCategorieController.php">Categorie</a></li>
             <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>/controllers/educateur/ListEducateurController.php">Educateur</a></li>
             <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>/controllers/contact/ListContactController.php">Contact</a></li>
         </ul>

@@ -17,7 +17,7 @@ class DeleteLicencieController
         }
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if ($this->licencieDAO->deleteById($licenciesId)) {
-                header('Location:ListLicenciesController.php');
+                header('Location:ListLicencieController.php');
                 exit();
             } else {
                 // Handle deletion errors

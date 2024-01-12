@@ -24,15 +24,11 @@ class EditCategorieController {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Retrieve form data
                 $nom = $_POST['nom'];
-                $prenom = $_POST['prenom'];
-                $email = $_POST['email'];
-                $numero_tel = $_POST['numero_tel'];
+                $prenom = $_POST['code_raccourci'];
 
                 // Update categorie details
                 $categorie->setNom($nom);
-                $categorie->setPrenom($prenom);
-                $categorie->setEmail($email);
-                $categorie->setNumeroTel($numero_tel);
+                $categorie->setCodeRaccourci($prenom);
 
                 if ($this->categorieDAO->update($categorie)) {
                     // Redirect to the detail page after modification

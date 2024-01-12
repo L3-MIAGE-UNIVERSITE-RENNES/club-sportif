@@ -11,7 +11,6 @@
         <table class="table table-bordered table-striped mx-auto">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Email</th>
@@ -22,7 +21,6 @@
             <tbody>
             <?php foreach ($contacts as $contact): ?>
                 <tr>
-                    <td><?php echo $contact->getIdContact(); ?></td>
                     <td><?php echo $contact->getNom(); ?></td>
                     <td><?php echo $contact->getPrenom(); ?></td>
                     <td><?php echo $contact->getEmail(); ?></td>

@@ -1,38 +1,41 @@
 <?php
 
-class AddCategorieController
+class AddLicencieController
 {
     private $categorieDAO;
+    private $contactDAO;
+    private $licencieDAO;
 
-    public function __construct(CategorieDAO $categorieDAO) {
+    public function __construct(CategorieDAO $categorieDAO, LicencieDAO $licencieDAO, ContactDAO $contactDAO) {
         $this->categorieDAO = $categorieDAO;
+        $this->contactDAO = $contactDAO;
+        $this->licencieDAO = $licencieDAO;
     }
 
     public function index(){
-        include('../../views/categorie/add_categorie.php');
+        $licencies = $this->licencieDAO->getAll();
+        $contacts = $this->contactDAO->getAll();
+        $categories = $this->categorieDAO->getAll();
+        include('../../views/licencie/add_licencie.php');
     }
 
-    public function add_categorie(){
+    public function add_licencie(){
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Retrieve form data
                 $nom = $_POST['nom'];
-                $code_raccourci = $_POST['code_raccourci'];
+                $prenom = $_POST['prenom'];
+                $id_contact = $_POST['id_contact'];
+                $id_categorie = $_POST['id_categorie'];
 
-                if($this->categorieDAO->getByCode($code_raccourci)){
-                    echo 'Cette categorie existe déjà !';
-                    return;
-                }
-
-                // Create new Categorie object
-                $categorie = new Categorie("", $nom, $code_raccourci);
-                if ($this->categorieDAO->create($categorie)) {
+                $licencie = new Licencie("", $nom, $prenom, $id_contact, $id_categorie);
+                if ($this->licencieDAO->create($licencie)) {
                     // Redirect to homepage after adding
-                    header('Location:ListCategorieController.php');
+                    header('Location:ListLicencieController.php');
                     exit();
                 } else {
                     // Handle errors when adding categorie
-                    echo "Erreur lors de l'ajout de la catégorie.";
+                    echo "Erreur lors de l'ajout du licencié.";
                 }
             }
         } catch (Exception $e){
@@ -48,13 +51,16 @@ require_once("../../classes/models/categorieModel.php");
 require_once("../../classes/models/licencieModel.php");
 require_once("../../classes/dao/categorieDAO.php");
 require_once("../../classes/dao/licencieDAO.php");
+require_once("../../classes/models/contactModel.php");
+require_once("../../classes/dao/ContactDAO.php");
 
 $categorieDAO = new CategorieDAO(new Connexion());
 $licencieDAO = new LicencieDAO(new Connexion());
-$controller = new AddCategorieController($categorieDAO, $licencieDAO);
+$contactDAO = new ContactDAO(new Connexion());
+$controller = new AddLicencieController($categorieDAO, $licencieDAO, $contactDAO);
 
 if(!isset($_POST['action'])){
     $controller->index();
 } else{
-    $controller->add_categorie();
+    $controller->add_licencie();
 }
