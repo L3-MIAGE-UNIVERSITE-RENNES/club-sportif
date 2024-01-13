@@ -1,4 +1,5 @@
 .idea
+/partie_1/controllers/licencie/uploads
 ###> symfony/framework-bundle ###
 /partie_2/.env.local
 /partie_2/.env.local.php
